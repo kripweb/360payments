@@ -1,0 +1,158 @@
+<div class="main-content container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<?php if($info) { ?>
+				<div class="alert alert-success mb-0 p-10" role="alert"><?php echo $info; ?></div>
+			<?php } ?>
+			<?php if($error) { ?>
+				<div class="alert alert-danger mb-0 p-10" role="alert"><?php echo $error; ?></div>
+			<?php } ?>
+			<div class="alert alert-danger mb-0 p-10" role="alert" id="error" style="display:none"><?php echo $error; ?></div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12" id="calculator">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Calculator</div>
+				<div class="panel-body" style="padding:10px 20px;">
+					<div class="row">
+						<div class="col-sm-6">
+							<form method="POST">
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Partner</label>
+									<select class="form-control" name="vendor" id="vendor">
+										<?php
+											$type_query = "SELECT * FROM merchants ORDER BY id ASC";
+											$type_query = mysqli_query($mysqli, $type_query);
+											while($type_row = mysqli_fetch_assoc($type_query)){
+										?>
+											<option value="<?php echo $type_row['id']; ?>"><?php echo $type_row['name']; ?></option>
+										<?php } ?>
+									</select>
+								  </div>
+							  </div>
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Name of Business (*)</label>
+									<input type="text" name="name" id="name" class="form-control" placeholder="Name of Business" required>
+								  </div>
+							  </div>
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Type of Business (*)</label>
+									<select class="form-control select2" name="type" id="type">
+									<option value="" rate="0">Choose type of business</option>
+									<?php
+										$type_query = "SELECT * FROM merchants_rates WHERE merchants_id='1' ORDER BY description ASC";
+										$type_query = mysqli_query($mysqli, $type_query);
+										while($type_row = mysqli_fetch_assoc($type_query)){
+									?>
+										<option value="<?php echo $type_row['id']; ?>" rate="<?php echo $type_row['charge']; ?>"><?php echo $type_row['description']; ?> - <?php echo $type_row['code']; ?></option>
+									
+									<?php } ?>
+									</select>
+								  </div>
+							  </div>
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Monthly Sales (*)</label>
+									<div class="input-group" id="igms">
+										<span class="input-group-addon">$</span>
+										<input type="text" class="form-control" id="ms" name="ms" required>
+									</div>
+								  </div>
+							  </div>
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Number of Transaction (*)</label>
+									<input type="number" name="tr" id="tr" class="form-control" placeholder="Number of Transaction" value="" required>
+								  </div>
+							  </div>
+							  
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Total Fees (*)</label>
+									<div class="input-group" id="igfees">
+										<span class="input-group-addon">$</span>
+										<input type="text" class="form-control" id="fees" name="fees" required>
+									</div>
+								  </div>
+							  </div>
+							  
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Current Credit Card Processor (*)</label>
+									<input type="text" name="ccp" id="ccp" class="form-control" placeholder="Current credit card processor" required>
+								  </div>
+							  </div>
+							  
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Monthly Fees (*)</label>
+									<div class="input-group" id="mfeew">
+										<span class="input-group-addon">$</span>
+										<input type="number" class="form-control" id="mfee" name="mfee" value="10" required>
+									</div>
+								  </div>
+							  </div>
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<label>Spread Cut Amount (*)</label>
+									<div class="input-group" id="scaw">
+										<input type="number" class="form-control" id="sca" name="sca" value="<?php echo $sca; ?>" required>
+										<span class="input-group-addon">%</span>
+									</div>
+								  </div>
+							  </div>
+							  
+							  
+							  <div class="row">
+								  <div class="form-group col-md-12">
+									<button type="button" class="btn btn-primary btn-lg" name="FormSubmit" onclick="precalculate()">Calculate</button>
+								  </div>
+							  </div>
+							</form>
+						</div>
+						<div class="col-sm-6" id="precalculator">
+						
+						
+						</div>
+					</div>
+				</div>
+			  </div>
+		</div>
+		
+		
+		
+		<div id="finaldata">
+		
+		
+		</div>
+	</div>
+</div>
+<input type="hidden" id="merchant_id" value="<?php echo $merchant_id; ?>" />
+
+<script>
+	$('#vendor').on('change', function() {
+		var vendor = this.value;
+		// AJAX TO GET VENDOR CODES
+		$.ajax({
+			type: 'post',
+			url: '<?php echo $site_url; ?>/ajax/merchant_rates.php',
+			data: "id="+vendor,
+			dataType: "JSON",
+			success: function (data) {
+				$("#type").html(data.data);
+				$("#sca").val(data.sca);
+				$("#merchant_id").val(vendor);
+			}
+		});
+	});
+</script>

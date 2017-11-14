@@ -1,0 +1,102 @@
+input
+{
+	border: none; 
+	border-bottom: 1px solid black; 
+	border-radius: 0px;
+    outline: none;
+    box-shadow: none;
+}
+
+td{padding:7px;}
+
+.bt-0{border-top:0px;}
+
+.input-small{width:100px;}
+
+.input-50{width:50px;}
+
+.text{
+    text-align:justify;
+	width:90%;
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.upper{color:#9e9e9e; right:4%; margin-top:10px;}
+
+.br-0{border-right:0px;}
+
+.mt-10{margin-top:10px;}
+
+.ml-18{margin-left:18px;}
+
+.pr-50{padding-right:50px;}
+.fs-18{font-size:18px;}
+
+.bgblack{
+     background:black;
+	 color:white;
+	 font-size:18px;
+	 font-weight:bold;
+	 }
+
+.fs-13{font-size:15px;}	
+
+.text-center{text-align:center;} 
+.text-right{float:right;}
+
+.text-justify{text-align:justify;}
+
+.tl{background:#e2d7d7;}
+
+/*Merchant Order Form*/	
+
+.logo{
+    height: 70px;
+    width: 70px;
+    float: right;
+    padding-right: 150px;
+}
+
+.version{
+    width: 105px;
+    float: right;
+} 
+
+.bgyellow{background:yellow;}
+
+.i-trans{background:transparent;}
+
+.x{font-size:18px; font-weight:bold; color:red;}
+
+.bggreen{background:rgba(12, 169, 12, 0.78);}
+
+.black{background:black;}
+
+.bb{border-bottom:0px solid black;}	 
+	 
+.fs-13{font-size:13px;}
+
+/*Transfirst Css*/
+
+.transfirst
+{  
+	height:70px;
+	width:300px;
+}
+
+.address
+{
+	float:left;
+}
+
+.mt-140{margin-top:140px;}
+
+.hr-10{
+	height: 10px;
+    background: green;
+    width: 98%;
+}
+
+.redcolor{color:red;}

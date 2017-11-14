@@ -1,0 +1,15 @@
+RewriteEngine On
+#we replace domain.com/$1 with %{SERVER_NAME}%{REQUEST_URI}.
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*) https://www.%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*) https://%{SERVER_NAME}%{REQUEST_URI} [L,R=301]
+
+##traling slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ %{ENV:BASE}$1/ [L,R=301]
+
+RewriteRule ^([^/]*)/$ %{ENV:BASE}index.php?m=$1 [L,QSA]

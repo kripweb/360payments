@@ -1,0 +1,1252 @@
+<div class="main-content container-fluid">
+		<!--<div  class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12"><a class="btn btn-success pull-right" onclick="PrintElem('#printdiv')"><i class="ti-printer"></i> PRINT</a></div>
+		</div>
+		-->
+		<div id="datasrc">
+		<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<?php if($info) { ?>
+				<div class="alert alert-success mb-0 p-10" role="alert"><?php echo $info; ?></div>
+			<?php } ?>
+			<?php if($error) { ?>
+				<div class="alert alert-danger mb-0 p-10" role="alert"><?php echo $error; ?></div>
+			<?php } ?>
+		</div>
+		
+		
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Sychronize Pipedrive Data</div>
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-sm-12">
+							<form class="form-inline" method="POST">
+							  <div class="form-group">
+								<input type="text" name="dealid" class="form-control" placeholder="Pipedrive Deal Id" required>
+							  </div>
+							  <button type="submit" class="btn btn-primary btn-lg" name="pipedrive">Synchronize</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+					
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Docusign Files</div>
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-sm-12">
+							<?php 
+								$u_query = "SELECT * FROM uploads WHERE aid='$id'";
+								$u_query = mysqli_query($mysqli, $u_query);
+								$u_total = mysqli_num_rows($u_query);
+								if($u_total>0){
+									while($u_row=mysqli_fetch_array($u_query)){
+							?>
+								<a href="<?php echo $site_url; ?>/uploads/docusign/<?php echo $u_row['location']; ?>" target="_blank" class="btn btn-default mr-5 mb-5" style="margin-right: 10px; margin-bottom:8px;"><i class="fa fa-file mr-10" style="margin-right: 5px;"></i> <?php echo $u_row['name']; ?></a>
+							<?php } } else { echo "<p style='margin:0px'>Not File Updated!</p>"; } ?>
+						</div>
+						<div class="col-sm-12">
+							<hr>
+							<form action="<?php echo $site_url; ?>/ajax/uploads.php?id=<? echo $id; ?>" class="dropzone" id="my-awesome-dropzone"></form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Application</div>
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-sm-12">
+							<h4>1. Business Information</h4>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q80">Legal Name of Business (25 characters max)</label>
+								<input type="text" class="form-control" value="<?php echo $row['q80']; ?>" id="q80" name="q80" maxlength="25" required>
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label style="font-size:13px" for="q82">Legal Address</label>
+								<input type="text" class="form-control" value="<?php echo $row['q82']; ?>" id="q82" name="q82" required>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q82a">Suite</label>
+								<input type="text" class="form-control" value="<?php echo $row['q82a']; ?>" id="q82a" name="q82a" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q82b">City</label>
+								<input type="text" class="form-control" value="<?php echo $row['q82b']; ?>" id="q82b" name="q82b" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q82c">State</label>
+								<input type="text" class="form-control" value="<?php echo $row['q82c']; ?>" id="q82c" name="q82c" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q82d">ZIP</label>
+								<input type="text" class="form-control" value="<?php echo $row['q82d']; ?>" id="q82d" name="q82d" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="exampleInputEmail1">How long have you owner your business?</label>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q118" id="q118" value="<?php echo $row['q118']; ?>" required />
+											<div class="input-group-addon">Years</div>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q119" id="q119" value="<?php echo $row['q119']; ?>" required />
+											<div class="input-group-addon">Months</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row" >
+						<div class="col-sm-12">
+							<hr>
+							<h4>2. DBA Information</h4>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q81">DBA Name (25 characters max)</label>
+								<input type="text" class="form-control" name="q81" id="q81" value="<?php echo $row['q81']; ?>" required>
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label style="font-size:13px" for="q83">DBA Address (Physical location, no PO Boxes)</label>
+								<input type="text" class="form-control" name="q83" id="q83" value="<?php echo $row['q83']; ?>" required>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q83a">Suite</label>
+								<input type="text" class="form-control" name="q83a" id="q83a" value="<?php echo $row['q83a']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q83b">City</label>
+								<input type="text" class="form-control" name="q83b" id="q83b" value="<?php echo $row['q83b']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q83c">State</label>
+								<input type="text" class="form-control" name="q83c" id="q83c" value="<?php echo $row['q83c']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q83d">ZIP</label>
+								<input type="text" class="form-control" name="q83d" id="q83d" value="<?php echo $row['q83d']; ?>" required>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>3. Contact & Website Information</h4>
+						</div>
+						
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q84">Website Address</label>
+								<input type="text" class="form-control" name="q84" id="q84" value="<?php echo $row['q84']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q85a">Phone Number</label>
+								<input type="text" class="form-control bfh-phone" data-country="US" name="q85a" id="q85a" value="<?php echo $row['q85a']; ?>" data-number="<?php echo $row['q85a']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="qn1">Email Address</label>
+								<input type="text" class="form-control" name="qn1" id="qn1" value="<?php echo $row['qn1']; ?>" required>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>4. Type of Ownership</h4>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio" name="q91" value="1" <?php if($row['q91']==1){ echo "checked"; } ?> required > Sole Proprietorship
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio" value="2" name="q91" <?php if($row['q91']==2){ echo "checked"; } ?> required > LLC
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="3" name="q91" <?php if($row['q91']==3){ echo "checked"; } ?> required > Partnership
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="4" name="q91" <?php if($row['q91']==4){ echo "checked"; } ?> required > Ltd Liability Partnership
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="5" name="q91" <?php if($row['q91']==5){ echo "checked"; } ?> required > Government Entity
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="6" name="q91" <?php if($row['q91']==6){ echo "checked"; } ?> required > Trust
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="7" name="q91" <?php if($row['q91']==7){ echo "checked"; } ?> required > Professional Association
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="8" name="q91" <?php if($row['q91']==8){ echo "checked"; } ?> required > Political Organization
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="9" name="q91" <?php if($row['q91']==9){ echo "checked"; } ?> required > Public Corporation
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="10" name="q91" <?php if($row['q91']==10){ echo "checked"; } ?> required > Private Corporation
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+							  <input type="radio"   value="11" name="q91" <?php if($row['q91']==11){ echo "checked"; } ?> required > Nonprofit Corporation
+							</label>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>5. Card Processing Information</h4>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<label style="font-size:14px" class="mr-10">Have you ever accepted credit cards before?</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q92"  value="1" <?php if($row['q92']==1){ echo "checked"; } ?> required > Yes
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q92"  value="2" <?php if($row['q92']==2){ echo "checked"; } ?> required > No
+							</label>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label style="font-size:13px" for="q93">What was the processor's name?</label>
+								<input type="text" class="form-control" name="q93" id="q93" value="<?php echo $row['q93']; ?>">
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="form-group">
+								<label style="font-size:13px" for="q94">Number of locations?</label>
+								<input type="text" class="form-control" name="q94" id="q94" value="<?php echo $row['q94']; ?>">
+							</div>
+						</div>
+						<div class="col-sm-7">
+							<div class="form-group">
+								<label style="font-size:13px" for="q95">If your former processor was TransFirst, please provide your Merchant ID number.</label>
+								<input type="text" class="form-control" name="q95" id="q95" value="<?php echo $row['q95']; ?>">
+							</div>
+						</div>
+						
+						<div class="col-sm-12">
+							<label style="font-size:14px" class="mr-10">Do you bill your customers prior to goods being shipped?</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q96"  value="1" <?php if($row['q96']==1){ echo "checked"; } ?> required > Yes
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q96"  value="2" <?php if($row['q96']==2){ echo "checked"; } ?> required > No
+							</label>
+						</div>
+						
+						<div class="col-sm-12 mt-10">
+							<label style="font-size:14px" class="mr-10">If yes, in how many days?</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q97"  value="1" <?php if($row['q97']==1){ echo "checked"; } ?>> 0-2 days
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q97"  value="2" <?php if($row['q97']==2){ echo "checked"; } ?>> 3-30 days
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q97"  value="3" <?php if($row['q97']==3){ echo "checked"; } ?>> 31-60 days
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q97"  value="4" <?php if($row['q97']==4){ echo "checked"; } ?>> 61-90 days
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q97"  value="5" <?php if($row['q97']==5){ echo "checked"; } ?>> Over 90 days
+							</label>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>6. Credit Card Processing Methods</h4>
+						</div>
+						<div class="col-sm-12 tabels mt-10">
+							
+							<table class="table table-bordered tableshort2" style="">
+								<tr>
+									<td class="lefthead w80">Card swiped transaction</td>
+									<td>
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q98" id="98" value="<?php echo $row['q98']; ?>" onkeyup="total100()" required />
+											<div class="input-group-addon">%</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="lefthead w80">Manually keyed <br>(<small>card present</small>)</td>
+									<td>
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q99" id="99" value="<?php echo $row['q99']; ?>" onkeyup="total100()" required />
+											<div class="input-group-addon">%</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="lefthead w80">Manually keyed <br>(<small>card not present and/or mail order/telephone order</small>)</td>
+									<td>
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q100" id="100" value="<?php echo $row['q100']; ?>" onkeyup="total100()" required />
+											<div class="input-group-addon">%</div>
+										</div>
+										</td>
+								</tr>
+								<tr>
+									<td class="lefthead w80">eCommerce <br>(<small>card not present</small>)</td>
+									<td>
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q101" id="101" value="<?php echo $row['q101']; ?>" onkeyup="total100()" required />
+											<div class="input-group-addon">%</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="primary">
+									<td class="lefthead w80">Total <br>(<small>must equal 100%</small>)</td>
+									<td class="text-center" id="total100"><?php echo $row['q98']+$row['q99']+$row['q100']+$row['q101']; ?> %</td>
+								</tr>
+								<tr>
+									<td class="lefthead w80">What percentage of your sales are business to business?<br>(must be 0-100%)</td>
+									<td>
+										<div class="input-group">
+											<input class="form-control input-sm" autocomplete="off" type="number"  name="q102" id="q102" value="<?php echo $row['q102']; ?>" required />
+											<div class="input-group-addon">%</div>
+										</div>
+									</td>
+								</tr>
+							 </table>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>7. Type of Business</h4>
+						</div>
+						
+						
+						<div class="col-sm-12 mb-10">
+							<label style="font-size:14px; display:block;" class="mr-10">What type of business do you operate?</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105a"  <?php if($row['q105a']==1){ echo "checked"; } ?> value="1"> Retail
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105b" <?php if($row['q105b']==2){ echo "checked"; } ?>  value="2"> Restaurant with tips
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105c" <?php if($row['q105c']==3){ echo "checked"; } ?>  value="3"> Restaurant
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105d" <?php if($row['q105d']==4){ echo "checked"; } ?>  value="4"> Mail / Telephone order
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105e" <?php if($row['q105e']==5){ echo "checked"; } ?>  value="5"> E-commerce
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105f" <?php if($row['q105f']==6){ echo "checked"; } ?>  value="6"> Lodging
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105g" <?php if($row['q105g']==7){ echo "checked"; } ?>  value="7"> Supermarket
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105h" <?php if($row['q105h']==8){ echo "checked"; } ?>  value="8"> Utility
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105i" <?php if($row['q105i']==9){ echo "checked"; } ?>  value="9"> Pharmacy
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input type="checkbox" name="q105j" <?php if($row['q105j']==10){ echo "checked"; } ?>  value="10"> Business to business
+							</label>
+						</div>
+						
+						<div class="col-sm-12">
+							<label style="font-size:14px" class="mr-10">Does your business close completely for entire months out of the year?</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q103"  value="1" <?php if($row['q103']==1){ echo "checked"; } ?> required > Yes
+							</label>
+							<label style="font-size:13px" class="radio-inline">
+								<input type="radio" name="q103"  value="2" <?php if($row['q103']==2){ echo "checked"; } ?> required > No
+							</label>
+						</div>
+						
+						<div class="col-sm-12 mt-10">
+							<label style="font-size:14px; display:block;" class="mr-10">If yes, during which months?</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104a" id="104a" type="checkbox" value="1" <?php if($row['q104a']==1){ echo "checked"; } ?>> Jan
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104b" id="104b" type="checkbox" value="2" <?php if($row['q104b']==2){ echo "checked"; } ?>> Feb
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104c" id="104c" type="checkbox" value="3" <?php if($row['q104c']==3){ echo "checked"; } ?>> Mar
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104d" id="104d" type="checkbox" value="4" <?php if($row['q104d']==4){ echo "checked"; } ?>> Apr
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104e" id="104e" type="checkbox" value="5" <?php if($row['q104e']==5){ echo "checked"; } ?>> May
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104f" id="104f" type="checkbox" value="6" <?php if($row['q104f']==6){ echo "checked"; } ?>> Jun
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104g" id="104g" type="checkbox" value="7" <?php if($row['q104g']==7){ echo "checked"; } ?>> Jul
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104h" id="104h" type="checkbox" value="8" <?php if($row['q104h']==8){ echo "checked"; } ?>> Aug
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104i" id="104i" type="checkbox" value="9" <?php if($row['q104i']==9){ echo "checked"; } ?>> Sep
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104j" id="104j" type="checkbox" value="10" <?php if($row['q104j']==10){ echo "checked"; } ?> > Oct
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104k" id="104k" type="checkbox" value="11" <?php if($row['q104k']==11){ echo "checked"; } ?> > Nov
+							</label>
+							<label style="font-size:13px" class="checkbox-inline">
+								<input name="q104l" id="104l" type="checkbox" value="12" <?php if($row['q104l']==12){ echo "checked"; } ?> > Dec
+							</label>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>8. W-9 Information</h4>
+						</div>
+						
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q109">Taxpayer Identification Number</label>
+								<input type="text" class="form-control" name="q109" id="q109" value="<?php echo $row['q109']; ?>" required >
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px; display:block" for="exampleInputEmail1">This number is a/an</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q110"  value="1" <?php if($row['q110']==1){ echo "checked"; } ?> required > EIN
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q110"  value="2" <?php if($row['q110']==2){ echo "checked"; } ?> required > Social Security Number
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q110"  value="3" <?php if($row['q110']==3){ echo "checked"; } ?> required > ITIN
+								</label>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>9. Owner Information (holds at least a 50% stake in the business)</h4>
+						</div>
+						
+						
+						<div class="col-sm-8">
+							<div class="form-group">
+								<label style="font-size:13px" for="q111">Name</label>
+								<input type="text" class="form-control" name="q111" id="q111" value="<?php echo $row['q111']; ?>" required >
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q111a">Title (CEO, President, Secretary, etc.)</label>
+								<input type="text" class="form-control" name="q111a" id="q111a" value="<?php echo $row['q111a']; ?>" required >
+							</div>
+						</div>
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q113">Home address</label>
+								<input type="text" class="form-control" name="q113" id="q113" value="<?php echo $row['q113']; ?>" required >
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q112">Date of birth</label>
+								<input type="text" class="form-control" name="q112" id="q112"  value="<?php echo $row['q112']; ?>" required >
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label style="font-size:13px" for="q114a">Home phone number</label>
+								<input type="text" class="form-control bfh-phone" data-country="US" name="q114a" id="114a" value="<?php echo $row['q114a']; ?>" data-number="<?php echo $row['q114a']; ?>" required >
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label style="font-size:13px" for="qn2a">Social security number</label>
+								<input type="text" class="form-control bfh-phone" data-format="ddd-dd-dddd" name="qn2a" id="qn2a" value="<?php echo $row['qn2a']; ?>" data-number="<?php echo $row['qn2a']; ?>" required >
+							</div>
+						</div>
+						
+						<div class="col-sm-2">
+							<div class="form-group">
+								<label style="font-size:13px" for="q115">Percent owned</label>
+								<div class="input-group">
+									<input class="form-control input-sm" autocomplete="off" type="number"  name="q115" id="q115" value="<?php echo $row['q115']; ?>" required />
+									<div class="input-group-addon">%</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q116">Owner’s driver’s license number</label>
+								<input class="form-control" autocomplete="off" name="q116" id="q116" value="<?php echo $row['q116']; ?>" required />
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q117">Date of issuance</label>
+								<input class="form-control" autocomplete="off" name="q117" id="q117" value="<?php echo $row['q117']; ?>" required />
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q117b">Expiration date</label>
+								<input class="form-control" autocomplete="off" name="q117b" id="q117b" value="<?php echo $row['q117b']; ?>" required />
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q117a">State of issuance</label>
+								<input class="form-control" autocomplete="off" name="q117a" id="q117a" value="<?php echo $row['q117a']; ?>" required />
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>10. Any prior bankruptcies?</h4>
+						</div>
+						
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:14px;" for="">Business</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q120" <?php if($row['q120']==1){ echo "checked"; } ?>  value="1" required> Yes
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q120" <?php if($row['q120']==2){ echo "checked"; } ?>  value="2" required> No
+								</label>
+							</div>
+							
+							<div class="form-group mt-10">
+								<label style="font-size:13px" for="q122">If yes, filling date</label>
+								<input class="form-control" autocomplete="off" name="q122" id="q122" value="<?php echo $row['q122']; ?>" />
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:14px;" for="">Personal</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q121" <?php if($row['q121']==1){ echo "checked"; } ?>  value="1" required> Yes
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q121" <?php if($row['q121']==2){ echo "checked"; } ?>  value="2" required> No
+								</label>
+							</div>
+							
+							<div class="form-group mt-10">
+								<label style="font-size:13px" for="q122a">If yes, filling date</label>
+								<input class="form-control" autocomplete="off" name="q122a" id="q122a" value="<?php echo $row['q122']; ?>" />
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>11. Banking Information</h4>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q123">Name of bank</label>
+								<input type="text" class="form-control" name="q123" id="q123" value="<?php echo $row['q123']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label style="font-size:13px" for="q124a">Phone number</label>
+								<input type="text" class="form-control bfh-phone" data-country="US" name="q124a" id="q124a" value="<?php echo $row['q124a']; ?>" data-number="<?php echo $row['q124a']; ?>" required>	
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q125">Routing number</label>
+								<input type="text" class="form-control" name="q125" id="q125" value="<?php echo $row['q125']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label style="font-size:13px" for="q126a">Account number</label>
+								<input type="text" class="form-control" name="q126a" id="126a" value="<?php echo $row['q126a']; ?>" required>
+							</div>
+						</div>
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px; display:block" for="exampleInputEmail1">Account type</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q126" <?php if($row['q126']==1){ echo "checked"; } ?>  value="1" required > Checking Account
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q126" <?php if($row['q126']==2){ echo "checked"; } ?>  value="2" required > Saving Account
+								</label>
+								<label style="font-size:13px" class="radio-inline">
+									<input type="radio" name="q126" <?php if($row['q126']==3){ echo "checked"; } ?>  value="3" required > General Ledger
+								</label>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>12. Description of the products and/or services that you sell</h4>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<textarea type="text" class="form-control" name="q127" id="q127" rows="5"><?php echo $row['q127']; ?></textarea>
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					<div class="row">
+							<div class="col-sm-12">
+								<hr>
+								<h4>13. Other</h4>
+							</div>
+							
+							
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label style="font-size:14px;" for="">Do you plan to integrate this payment into a software or point of sale system?</label>
+									<label style="font-size:13px" class="radio-inline">
+										<input type="radio" name="q155" <?php if($row['q155']==1){ echo "checked"; } ?>  value="1" required> Yes
+									</label>
+									<label style="font-size:13px" class="radio-inline">
+										<input type="radio" name="q155" <?php if($row['q155']==2){ echo "checked"; } ?>  value="2" required> No
+									</label>
+								</div>
+							</div>
+							
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label style="font-size:13px" for="q156">If yes, Which Software or POS?</label>
+									<input class="form-control" autocomplete="off" name="q156" id="q156" value="<?php echo $row['q156']; ?>" />
+								</div>
+							</div>
+							
+							
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label style="font-size:14px;" for="">Were you referred by your bank?</label>
+									<label style="font-size:13px" class="radio-inline">
+										<input type="radio" name="q157" <?php if($row['q157']==1){ echo "checked"; } ?>  value="1" required> Yes
+									</label>
+									<label style="font-size:13px" class="radio-inline">
+										<input type="radio" name="q157" <?php if($row['q157']==2){ echo "checked"; } ?>  value="2" required> No
+									</label>
+								</div>
+							</div>
+							
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label style="font-size:13px;" for="">If yes, Which bank?</label>
+									<select class="form-control" name="q158" id="158" onchange="SelectBranch()">
+										<option value="0" <?php if($row['q158']==0){ echo "selected"; } ?>></option>
+										<option value="1" <?php if($row['q158']==1){ echo "selected"; } ?>>Avid Bank</option>
+										<option value="2" <?php if($row['q158']==2){ echo "selected"; } ?>>Bridge Bank</option>
+										<option value="3" <?php if($row['q158']==3){ echo "selected"; } ?>>Heritage Bank of Commerce</option>
+										<option value="4" <?php if($row['q158']==4){ echo "selected"; } ?>>First Republic Bank</option>
+										<option value="5" <?php if($row['q158']==5){ echo "selected"; } ?>>Meriwest</option>
+										<option value="6" <?php if($row['q158']==6){ echo "selected"; } ?>>Oak Valley Community Bank</option>
+										<option value="7" <?php if($row['q158']==7){ echo "selected"; } ?>>Santa Cruz Community Credit Union</option>
+										<option value="8" <?php if($row['q158']==8){ echo "selected"; } ?>>Trivalley</option>
+										<option value="9" <?php if($row['q158']==9){ echo "selected"; } ?>>Other</option>
+									</select>
+								</div>
+								
+								
+								
+								<div class="form-group" id="q158a" style="display:none">
+									<label style="font-size:13px;" for="">Bank name?</label>
+									<input class="form-control" autocomplete="off" type="text"  name="q158a" id="158a" value="<?php echo $row['q158a']; ?>" />
+								</div>
+								
+								
+								<div class="form-group" id="q158b" style="display:none">
+									<label style="font-size:13px;" for="">Which Branch?</label>
+									<input class="form-control" autocomplete="off" type="text"  name="q158b" id="158b" value="<?php echo $row['q158b']; ?>" />
+								</div>
+								
+								
+								<div class="form-group" id="q159" style="display:none">
+									<label style="font-size:13px;" for="">Which Branch?</label>
+									<select class="form-control" id="159" name="q159"></select>
+								</div>
+								
+								<div class="form-group" id="q160" style="display:none">
+									<label style="font-size:13px;" for="">What employee referred you?</label>
+									<input class="form-control" autocomplete="off" type="text"  name="q160" id="q160" value="<?php echo $row['q160']; ?>" />
+								</div>
+								
+							</div>
+							
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<hr>
+							<h4>14. Uploaded Documents</h4>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q129">Cancelled Check</label>
+								
+								<?php if($row['q129']){ ?>
+								<p id="doc129"><a class="btn btn-info btn-sm mr-5 mb-5" href="<?php echo $site_url; ?>/../apply/uploads/<?php echo $row['q129']; ?>" target="_blank">View Cancelled Check</a> </p>
+								<?php } else { echo "<p>Not Uploaded!</p>"; }?>
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q131">Image of your driver’s license</label>
+								
+								
+								<?php if($row['q131']){ ?>
+								<p id="doc131"><a href="<?php echo $site_url; ?>/../apply/uploads/<?php echo $row['q131']; ?>" target="_blank" class="btn btn-info btn-sm mr-5 mb-5">View DL</a> </p>
+								<?php } else { echo "<p>Not Uploaded!</p>"; } ?>
+								
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label style="font-size:13px" for="q125">Three months of processing statements</label>
+								<?php if($row['q133']){ ?>
+								<p id="doc133"><a href="<?php echo $site_url; ?>/../apply/uploads/<?php echo $row['q133']; ?>" target="_blank" class="btn btn-info btn-sm mr-5 mb-5">View Statements</a></p>
+								<?php } else { echo "<p>Not Uploaded!</p>"; } ?>
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					
+				</div>
+			  </div>
+		</div>
+	  </div>
+	  
+	  </div>
+	  
+	  
+	  <div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-default panel-table">
+				<div class="panel-heading">Account Info</div>
+				<div class="panel-body">
+					<table class="table table-striped table-hover">
+						<tr>
+						  <td style="font-weight:bold;">First Name</td>
+						  <td><?php echo $row['firstname']; ?></td>
+						</tr>
+						
+						<tr>
+						  <td style="font-weight:bold;">Last Name</td>
+						  <td><?php echo $row['lastname']; ?></td>
+						</tr>
+						
+						
+						<tr>
+						  <td style="font-weight:bold;">Email</td>
+						  <td><?php echo $row['email']; ?></td>
+						</tr>
+						
+						<tr>
+						  <td style="font-weight:bold;">Password</td>
+						  <td><?php echo $row['password']; ?></td>
+						</tr>
+						
+						
+						
+						<tr>
+						  <td style="font-weight:bold;">Created On</td>
+						  <td><?php echo $row['addedon']; ?></td>
+						</tr>
+					</table>
+				</div>
+			  </div>
+		</div>
+	  </div>
+	  
+	  
+	  <div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-default panel-table">
+				<div class="panel-heading">Calculator Data</div>
+				<div class="panel-body">
+				
+					<?php
+					
+						$ms=$row['cal_ms'];
+						$fees=$row['cal_fees'];
+						$rate=$row['cal_type_rate'];
+						$sca=$row['cal_sca'];
+						$mfee=$row['cal_mfee'];
+						$tr=$row['cal_tr'];
+						$ccp=$row['cal_ccp'];
+						
+						$avg_ticket = $ms/$tr;
+						$current_eff_rate = $fees/$ms;
+						$eff_int_cost = $rate;
+						$spread_per = $current_eff_rate-$eff_int_cost;
+						$sca = $sca;
+						$tran_fee_charged = 0.05;
+						$tran_fee_bp_above = ($tran_fee_charged-0.04)/$avg_ticket;
+						$monthly_fee = $mfee;
+						$monthly_fee_bp = $monthly_fee/$ms;
+						$bp_charged = (($sca*$spread_per)-($tran_fee_charged/$avg_ticket)-($monthly_fee/$ms));
+						$new_fee = $bp_charged+$eff_int_cost;
+						$savings = ($current_eff_rate-$new_fee)*$ms;
+						$savings_anual = $savings*12;
+						$savings_3years = $savings*36;
+						$revenue = (($bp_charged+$tran_fee_bp_above)*$ms)*12;
+						$w2sales = ($revenue/12)*0.2;
+					?>
+					<table class="table table-striped table-hover">
+						<tr>
+							<td><strong>Name of Business</strong></td>
+							<td><?php echo $row['q80']; ?></td>
+						</tr>
+						<tr>
+							<td><strong>Type of Business</strong></td>
+							<td><?php echo $row['cal_type_name']; ?></td>
+						</tr>
+						<tr>
+							<td><strong>Monthly Sales</strong></td>
+							<td>$ <?php echo number_format($ms, 2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Number of Transactions</strong></td>
+							<td><?php echo $tr; ?></td>
+						</tr>
+						<tr>
+							<td><strong>Total Fees</strong></td>
+							<td>$ <?php echo number_format($fees,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Average Ticket</strong></td>
+							<td>$ <?php echo number_format($avg_ticket,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Current Effectiv Rate</strong></td>
+							<td><?php echo percentage($current_eff_rate); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Effective Interchange cost</strong></td>
+							<td><?php echo percentage($eff_int_cost); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Spread Percentage</strong></td>
+							<td><?php echo percentage($spread_per); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Spread Cut amount</strong></td>
+							<td><?php echo percentage($sca); ?></td>
+						</tr>
+						<tr>
+							<td><strong>BP Charged</strong></td>
+							<td><?php echo percentage($bp_charged); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Trans Fee Charged</strong></td>
+							<td>$ <?php echo number_format($tran_fee_charged,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Trans Fee BP Profit above cost</strong></td>
+							<td><?php echo percentage($tran_fee_bp_above); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Monthly Fee&nbsp;</strong></td>
+							<td>$ <?php echo number_format($monthly_fee,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Monthly Fee in BP</strong></td>
+							<td><?php echo percentage($monthly_fee_bp); ?></td>
+						</tr>
+						<tr>
+							<td><strong>New Effective Rate</strong></td>
+							<td><?php echo percentage($new_fee); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Savings</strong></td>
+							<td>$ <?php echo number_format($savings,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>Annual Savings</strong></td>
+							<td>$ <?php echo number_format($savings_anual,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>3 Year Savings</strong></td>
+							<td>$ <?php echo number_format($savings_3years,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>360 Revenue</strong></td>
+							<td>$ <?php echo number_format($revenue,2); ?></td>
+						</tr>
+						<tr>
+							<td><strong>W2 Sales Monthly Residual</strong></td>
+							<td>$ <?php echo number_format($w2sales,2); ?></td>
+						</tr>
+						
+						<tr>
+							<td><strong>Generated By</strong></td>
+							<td><?php echo $row['cal_gen_name']; ?></td>
+						</tr>
+					</table>
+				</div>
+			  </div>
+		</div>
+	  </div>
+	  
+	</div>
+  
+  
+  
+  <div id="b1" style="display:none">
+		<option value="0" <?php if($row['q159']==0){ echo "selected"; } ?> ></option>
+		<option value="1" <?php if($row['q159']==1){ echo "selected"; } ?> >Danville</option>
+		<option value="2" <?php if($row['q159']==2){ echo "selected"; } ?> >Fremont</option>
+		<option value="3" <?php if($row['q159']==3){ echo "selected"; } ?> >Gilroy</option>
+		<option value="4" <?php if($row['q159']==4){ echo "selected"; } ?> >Hollister</option>
+		<option value="5" <?php if($row['q159']==5){ echo "selected"; } ?> >Los Altos</option>
+		<option value="6" <?php if($row['q159']==6){ echo "selected"; } ?> >Los Gatos</option>
+		<option value="7" <?php if($row['q159']==7){ echo "selected"; } ?> >Morgan Hill</option>
+		<option value="8" <?php if($row['q159']==8){ echo "selected"; } ?> >Pleasanton</option>
+		<option value="9" <?php if($row['q159']==9){ echo "selected"; } ?> >San Jose</option>	
+		<option value="10" <?php if($row['q159']==10){ echo "selected"; } ?> >Sunnyvale</option>	
+		<option value="11" <?php if($row['q159']==11){ echo "selected"; } ?> >Walnut Creek</option>	
+	</div>
+	
+	<div id="b2" style="display:none">
+		<option value="12" <?php if($row['q159']==12){ echo "selected"; } ?> ></option>
+		<option value="13" <?php if($row['q159']==13){ echo "selected"; } ?> >Burlingame</option>
+		<option value="14" <?php if($row['q159']==14){ echo "selected"; } ?> >Cupertino</option>
+		<option value="15" <?php if($row['q159']==15){ echo "selected"; } ?> >Danville</option>
+		<option value="16" <?php if($row['q159']==16){ echo "selected"; } ?> >Palo Alto</option>
+		<option value="17" <?php if($row['q159']==17){ echo "selected"; } ?> >Orinda/Oakland</option>
+		<option value="18" <?php if($row['q159']==18){ echo "selected"; } ?> >San Mateo</option>
+		<option value="19" <?php if($row['q159']==19){ echo "selected"; } ?> >Millbrae</option>
+		<option value="20" <?php if($row['q159']==20){ echo "selected"; } ?> >Redwood City</option>
+		<option value="21" <?php if($row['q159']==21){ echo "selected"; } ?> >Livermore</option>
+		<option value="22" <?php if($row['q159']==22){ echo "selected"; } ?> >Walnut Creek</option>
+		<option value="23" <?php if($row['q159']==23){ echo "selected"; } ?> >Los Altos</option>
+		<option value="24" <?php if($row['q159']==24){ echo "selected"; } ?> >San Jose</option>
+		<option value="25" <?php if($row['q159']==25){ echo "selected"; } ?> >Menlo Park</option>
+		<option value="26" <?php if($row['q159']==26){ echo "selected"; } ?> >Sunnyvale</option>
+		<option value="27" <?php if($row['q159']==27){ echo "selected"; } ?> >Los Gatos</option>
+		<option value="28" <?php if($row['q159']==28){ echo "selected"; } ?> >Pleasanton</option>
+		<option value="29" <?php if($row['q159']==29){ echo "selected"; } ?> >San Jose (The Alameda)</option>
+	</div>
+	
+	<div id="b3" style="display:none">
+		<option value="30" <?php if($row['q159']==30){ echo "selected"; } ?> ></option>
+		<option value="31" <?php if($row['q159']==31){ echo "selected"; } ?> >Oakdale (Corporate)</option>
+		<option value="32" <?php if($row['q159']==32){ echo "selected"; } ?> >Oakdale (3rd Ave)</option>
+		<option value="33" <?php if($row['q159']==33){ echo "selected"; } ?> >Sonora Downtown</option>
+		<option value="34" <?php if($row['q159']==34){ echo "selected"; } ?> >Sonora East</option>
+		<option value="35" <?php if($row['q159']==35){ echo "selected"; } ?> >Modesto (12th & I)</option>
+		<option value="36" <?php if($row['q159']==36){ echo "selected"; } ?> >Modesto (Dale)</option>
+		<option value="37" <?php if($row['q159']==37){ echo "selected"; } ?> >Modesto (McHenry)</option>
+		<option value="38" <?php if($row['q159']==38){ echo "selected"; } ?> >Turlock</option>
+		<option value="39" <?php if($row['q159']==39){ echo "selected"; } ?> >Patterson</option>
+		<option value="40" <?php if($row['q159']==40){ echo "selected"; } ?> >Escalon</option>
+		<option value="41" <?php if($row['q159']==41){ echo "selected"; } ?> >Ripon</option>
+		<option value="42" <?php if($row['q159']==42){ echo "selected"; } ?> >Stockton</option>
+		<option value="43" <?php if($row['q159']==43){ echo "selected"; } ?> >Manteca</option>
+		<option value="44" <?php if($row['q159']==44){ echo "selected"; } ?> >Tracy</option>
+	</div>
+	
+	<div id="b4" style="display:none">
+		<option value="45" <?php if($row['q159']==45){ echo "selected"; } ?> ></option>
+		<option value="46" <?php if($row['q159']==46){ echo "selected"; } ?> >Livermore</option>
+		<option value="47" <?php if($row['q159']==47){ echo "selected"; } ?> >San Ramon</option>
+	</div>
+	
+	
+	
+	<script>
+	
+		$(document).ready(function(){
+			var optionSelected = $("#158").find("option:selected");
+			var value    = optionSelected.val();
+			
+			if(value==0){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==1){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==2){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==3){
+				$("#159").html($("#b1").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==4){
+				$("#159").html($("#b2").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==5){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==6){
+				$("#159").html($("#b3").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==7){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==8){
+				$("#159").html($("#b4").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==9){
+				$("#q159").hide();
+				
+				
+				$("#q158a").show();
+				$("#q158b").show();
+				$("#q160").show();
+			}
+		});
+	
+	
+		function SelectBranch(){
+			var optionSelected = $("#158").find("option:selected");
+			var value    = optionSelected.val();
+			
+			if(value==0){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==1){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==2){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==3){
+				$("#159").html($("#b1").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==4){
+				$("#159").html($("#b2").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==5){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==6){
+				$("#159").html($("#b3").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==7){
+				$("#q159").hide();
+				$("#q160").hide();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==8){
+				$("#159").html($("#b4").html());
+				$("#q159").show();
+				$("#q160").show();
+				$("#q158a").hide();
+				$("#q158b").hide();
+			}
+			
+			if(value==9){
+				$("#q159").hide();
+				
+				
+				$("#q158a").show();
+				$("#q158b").show();
+				$("#q160").show();
+			}
+		}
+	
+
+	 Dropzone.options.myAwesomeDropzone = { 
+		 acceptedFiles: ".png, .jpg, .jpeg, .gif, .pdf, .zip, .doc, .docx, .txt",
+		 dictDefaultMessage: "Drag your files here to upload!",
+		 createImageThumbnails: "true",
+	  };
+	
+	</script>

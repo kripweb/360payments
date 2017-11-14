@@ -1,0 +1,76 @@
+ <div class="page-head">
+	<h2 class="page-head-title">Welcome, <?php echo $admin_row['name']; ?></h2>
+		<ol class="breadcrumb page-head-nav">
+			<li><?php echo usertype($admin_row['type']); ?></li>
+			<li><?php echo $admin_row['designation']; ?></li>
+		</ol>
+</div>
+
+
+<div class="main-content container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading panel-heading-divider">
+				  <span class="title">Applications</span><span class="panel-subtitle">Data of applications last 7 days</span>
+				</div>
+				<div class="panel-body">
+				  <div id="barchart1" style="height: 300px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="<?php echo $site_url; ?>/assets/lib/highchart/js/highcharts.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	$('#barchart1').highcharts({
+		chart: {
+			type: 'column'
+		},
+		credits: {
+		enabled: false
+		},
+		title: {
+			text: 'Applications'
+		},
+		subtitle: {
+			text: 'Last 7 Days'
+		},
+		xAxis: {
+			categories: ["<?php echo $day1; ?>", "<?php echo $day2; ?>", "<?php echo $day3; ?>", "<?php echo $day4; ?>", "<?php echo $day5; ?>", "<?php echo $day6; ?>", "<?php echo $day7; ?>"]
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: 'Count'
+			}
+		},
+		tooltip: {
+			headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+			pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+			footerFormat: '</table>',
+			shared: true,
+			useHTML: true
+		},
+		plotOptions: {
+			column: {
+				pointPadding: 0,
+				borderWidth: 0,
+				dataLabels: {
+					enabled: true,
+					formatter: function () {
+
+						return this.point.y;
+					}
+				}
+			}
+		},
+		series: [{
+			name: 'Applications',
+			data: [<?php echo $day1_count; ?>, <?php echo $day2_count; ?>, <?php echo $day3_count; ?>, <?php echo $day4_count; ?>, <?php echo $day5_count; ?>, <?php echo $day6_count; ?>, <?php echo $day7_count; ?>]
+		}]
+	});
+  });
+</script>

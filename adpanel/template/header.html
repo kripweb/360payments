@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="<?php echo $site_url; ?>/assets/img/logo-fav.png">
+    <title>Executive Panel - 360 Payments </title>
+    <link rel="stylesheet" type="text/css" href="<?php echo $site_url; ?>/assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo $site_url; ?>/assets/lib/material-design-icons/css/material-design-iconic-font.min.css"/><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" type="text/css" href="<?php echo $site_url; ?>/assets/lib/select2/css/select2.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+	
+    <link rel="stylesheet" href="<?php echo $site_url; ?>/assets/css/style.css" type="text/css"/>
+	<script src="<?php echo $site_url; ?>/assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
+	<script src="<?php echo $site_url; ?>/lib/jquery.inputmask.bundle.js" type="text/javascript"></script>
+	<script src="<?php echo $site_url; ?>/assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="<?php echo $site_url; ?>/assets/lib/jquery.nestable/jquery.nestable.js" type="text/javascript"></script>
+    <script src="<?php echo $site_url; ?>/assets/lib/moment.js/min/moment.min.js" type="text/javascript"></script>
+    <script src="<?php echo $site_url; ?>/assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="<?php echo $site_url; ?>/assets/lib/dropzone/dist/dropzone.css" type="text/css"/>
+	<script src="<?php echo $site_url; ?>/assets/lib/dropzone/dist/dropzone.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="be-wrapper be-fixed-sidebar">
+      <nav class="navbar navbar-default navbar-fixed-top be-top-header">
+        <div class="container-fluid">
+          <div class="navbar-header"><a href="<?php echo $site_url; ?>/" class="navbar-brand"></a>
+          </div>
+          <div class="be-right-navbar">
+            <ul class="nav navbar-nav navbar-right be-user-nav">
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="<?php echo $site_url; ?>/uploads/avatar/<?php echo avatar($admin_row['avatar'], $admin_row['gender']); ?>" alt="Avatar"><span class="user-name"><?php echo $admin_row['name']; ?></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li>
+                    <div class="user-info">
+                      <div class="user-name"><?php echo $admin_row['name']; ?></div>
+                      <div class="user-position online"><?php echo $admin_row['designation']; ?> - <?php echo usertype($admin_row['type']); ?></div>
+                    </div>
+                  </li>
+                  <li><a href="<?php echo $site_url; ?>/settings/"><span class="icon mdi mdi-settings"></span> Settings</a></li>
+                  <li><a href="<?php echo $site_url; ?>/logout/"><span class="icon mdi mdi-power"></span> Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="page-title"><span><?php echo $title; ?></span></div>
+          </div>
+        </div>
+      </nav>
+      <div class="be-left-sidebar">
+        <div class="left-sidebar-wrapper"><a href="#" class="left-sidebar-toggle">Menu</a>
+          <div class="left-sidebar-spacer">
+            <div class="left-sidebar-scroll">
+              <div class="left-sidebar-content">
+                <ul class="sidebar-elements">
+                  <li class="divider">Menu</li>
+                  <li class="<?php if($active=="dashboard") { echo "active"; } ?> ">
+					<a href="<?php echo $site_url; ?>/"><i class="icon mdi mdi-home"></i><span>Dashboard</span></a>
+                  </li>
+				  
+				  
+				  <?php if($admin_row['type']==1) { ?>
+				  <li class="<?php if($active=="applications") { echo "active"; } ?>">
+						<a href="<?php echo $site_url; ?>/applications/add/"><i class="icon mdi mdi-plus"></i><span>Add Merchant</a>
+                  </li>
+				  
+				  <li class="<?php if($active=="applications") { echo "active"; } ?>">
+					<a href="<?php echo $site_url; ?>/applications/"><i class="icon mdi mdi-file-text"></i><span>Merchant Applications</span></a>
+				  </li>
+				  
+                  <li class="parent <?php if($active=="calculator") { echo "active open"; } ?>"><a href="#"><i class="icon mdi mdi-dialpad"></i><span>ISV Calculator</span></a>
+                    <ul class="sub-menu">
+                      <li>
+						<a href="<?php echo $site_url; ?>/partners/add/">Add Partner</a>
+                      </li>
+                      <li>
+						<a href="<?php echo $site_url; ?>/partners/list/">List Partners</a>
+                      </li>
+					  
+                    </ul>
+                  </li>
+				  
+				  
+                  <li class="divider">Users</li>
+                  <li class="parent <?php if($active=="users") { echo "active open"; } ?>"><a href="#"><i class="icon mdi mdi-face"></i><span>Users Management</span></a>
+                    <ul class="sub-menu">
+                      <li>
+						<a href="<?php echo $site_url; ?>/users/add/">Add User</a>
+                      </li>
+                      <li>
+						<a href="<?php echo $site_url; ?>/users/list/">List Users</a>
+                      </li>
+                    </ul>
+                  </li>
+				  
+				  <?php } ?>
+				  
+				  <?php if($admin_row['type']==2) { ?>
+					<li class="parent <?php if($active=="calculator") { echo "active open"; } ?>"><a href="#"><i class="icon mdi mdi-dialpad"></i><span>Calculator</span></a>
+                    <ul class="sub-menu">
+                      <li>
+						<a href="<?php echo $site_url; ?>/calculator/">Calculator</a>
+                      </li>
+                      <li>
+						<a href="<?php echo $site_url; ?>/calculator/list/">List Merchants</a>
+                      </li>
+					  
+					  <li>
+						<a href="<?php echo $site_url; ?>/applications/add/">Add Merchant</a>
+                    </li>
+                    </ul>
+                  </li>
+				  
+				  
+				  <?php } ?>
+				 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="be-content">

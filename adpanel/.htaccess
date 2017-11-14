@@ -1,0 +1,54 @@
+Options -MultiViews
+RewriteEngine On
+
+#Retrive base directory
+RewriteCond %{ENV:URI} ^$
+RewriteRule ^(.*)$ - [ENV=URI:$1]
+
+RewriteCond %{ENV:BASE} ^$
+RewriteCond %{ENV:URI}::%{REQUEST_URI} ^(.*)::(.*?)\1$
+RewriteRule ^ - [ENV=BASE:%2]
+
+
+
+#ErrorDocument 404 %{ENV:BASE}404.php
+#ErrorDocument 500 %{ENV:BASE}404.php
+
+
+##traling slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ %{ENV:BASE}$1/ [L,R=301]
+
+
+##LINK
+RewriteRule ^login/$ %{ENV:BASE}login.php [L,QSA]
+RewriteRule ^logout/$ %{ENV:BASE}logout.php [L,QSA]
+RewriteRule ^settings/$ %{ENV:BASE}settings.php [L,QSA]
+
+RewriteRule ^applications/add/$ %{ENV:BASE}applications-add.php [L,QSA]
+RewriteRule ^applications/$ %{ENV:BASE}applications.php [L,QSA]
+RewriteRule ^applications/view/([^/]*)/$ %{ENV:BASE}applications-view.php?id=$1 [L,QSA]
+RewriteRule ^applications/login/([^/]*)/$ %{ENV:BASE}applications-login.php?id=$1 [L,QSA]
+RewriteRule ^applications/delete/([^/]*)/$ %{ENV:BASE}applications.php?id=$1&task=delete [L,QSA]
+
+RewriteRule ^notifications/$ %{ENV:BASE}notifications.php [L,QSA]
+RewriteRule ^notifications/add/$ %{ENV:BASE}notifications-add.php [L,QSA]
+RewriteRule ^notifications/([^/]*)/$ %{ENV:BASE}notifications-view.php?ref=$1 [L,QSA]
+
+RewriteRule ^partners/add/$ %{ENV:BASE}merchants-add.php [L,QSA]
+RewriteRule ^partners/list/$ %{ENV:BASE}merchants-list.php [L,QSA]
+RewriteRule ^partners/view/([^/]*)/$ %{ENV:BASE}merchants-view.php?id=$1 [L,QSA]
+RewriteRule ^partners/delete/([^/]*)/$ %{ENV:BASE}merchants-list.php?id=$1&task=delete [L,QSA]
+RewriteRule ^partners/view/([^/]*)/delete/([^/]*)/$ %{ENV:BASE}merchants-view.php?id=$1&task=delete&tid=$2 [L,QSA]
+
+
+RewriteRule ^users/add/$ %{ENV:BASE}users-add.php [L,QSA]
+RewriteRule ^users/list/$ %{ENV:BASE}users-list.php [L,QSA]
+RewriteRule ^users/view/([^/]*)/$ %{ENV:BASE}users-view.php?id=$1 [L,QSA]
+RewriteRule ^users/delete/([^/]*)/$ %{ENV:BASE}users-list.php?id=$1&task=delete [L,QSA]
+
+
+RewriteRule ^calculator/$ %{ENV:BASE}calculator.php [L,QSA]
+RewriteRule ^calculator/list/$ %{ENV:BASE}applications.php [L,QSA]

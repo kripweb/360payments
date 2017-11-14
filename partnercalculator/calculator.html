@@ -1,0 +1,189 @@
+
+
+
+
+<main id="main" role="main" class="clearfix mountainbg" style="">
+	<div class="fusion-row" style="">
+		<section id="content" style="width: 100%;">
+			<div class="page type-page status-publish hentry" id="finaldata"> 
+				<div class="col-xs-12 col-md-6 col-md-offset-3" id="step1">
+					<div class="panel panel-success" style="border:0px;">
+					  <div class="panel-heading text-center"><h3 style="margin:0;">Get Your Lower Credit<br> Card Processing Rate Now</h3></div>
+					  <div class="panel-body">
+						<form method="post" autocomplete="off">
+						  <div class="form-group">
+							<label>Name of Business</label>
+							<input type="text" class="form-control" id="name" name="name" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_name">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="form-group">
+							<label>Type of Business</label>
+							<select class="form-control select2" id="type" name="type" required>
+								<option value="" rate="0">Choose type of business</option>
+								<?php
+									$type_query = "SELECT * FROM merchants_rates WHERE merchants_id='$merchant_id' ORDER BY description ASC";
+									$type_query = mysqli_query($mysqli, $type_query);
+									while($type_row = mysqli_fetch_assoc($type_query)){
+								?>
+									<option value="<?php echo $type_row['id']; ?>" rate="<?php echo $type_row['charge']; ?>"><?php echo $type_row['description']; ?> - <?php echo $type_row['code']; ?></option>
+								
+								<?php } ?>
+							</select>
+							
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_type">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="form-group">
+							<label>Monthly Sales</label>
+							<div class="input-group" id="igms">
+								<span class="input-group-addon" id="basic-addon2">$</span>
+								<input type="text" class="form-control" id="ms" name="ms" required>
+							</div>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_ms">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="form-group">
+							<label>Number of Transactions</label>
+							<input type="number" class="form-control" id="tr" name="tr" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_tr">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="form-group">
+							<label>Total Fees <span data-toggle="tooltip" data-placement="auto right" title='Please check your credit card processing statements for the "total fees" or the "amount deducted"' style="font-size:16px; cursor:pointer;"><i class="fa fa-question-circle" ></i></span></label>
+							<div class="input-group" id="igfees">
+								<span class="input-group-addon" id="basic-addon2">$</span>
+								<input type="text" class="form-control" id="fees" name="fees" required>
+							</div>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_fees">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="form-group">
+							<label>Who is your current credit card processor?</label>
+							<input type="text" class="form-control" id="ccp" name="ccp" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_ccp">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="">
+							<button type="button" class="btn btn-lg btn-block btn-success" onclick="step2()">Continue</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				</div>	
+					
+				<div class="col-xs-12 col-md-6 col-md-offset-3" id="step2" style="display:none">	
+					<div class="panel panel-success" style="border:0px;" >
+					   <div class="panel-heading text-center"><h3 style="margin:0;">Get Your Lower Credit<br> Card Processing Rate Now</h3></div>
+					  <div class="panel-body">
+						<div class="alert alert-danger" id="error" style="display:none;"></div>
+						<form method="post" autocomplete="off">
+						  <div class="form-group">
+							<label>First Name</label>
+							<input type="text" class="form-control" id="firstname" name="firstname" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_firstname">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  
+						  <div class="form-group">
+							<label>Last Name</label>
+							<input type="text" class="form-control" id="lastname" name="lastname" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_lastname">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  
+						  <div class="form-group">
+							<label>Email Address</label>
+							<input type="email" class="form-control" id="email" name="email" required>
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_email">Please provide a valid answer to continue.</div>
+						  </div>
+						  
+						  
+						  <div class="form-group">
+							<label>Phone Number</label>
+							<input type="text" class="form-control" id="contact" name="contact" required autocomplete="off">
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_contact">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  
+						  <div class="form-group">
+							<label>Password</label>
+							<input type="password" class="form-control" id="password" name="password" required autocomplete="new-password">
+							<div class="alert alert-danger alert-sm error2" style="display:none" id="e_password">Please provide an answer to continue.</div>
+						  </div>
+						  
+						  <div class="">
+							<button type="button" class="btn btn-lg btn-block btn-success" onclick="step3()">Get Quote</button>
+							<button type="button" class="btn btn-sm btn-block btn-danger" onclick="backtomain()">Go Back</button>
+						  </div>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</main>
+
+
+<main id="main" role="main" class="clearfix" style="">
+	<div class="fusion-row" style="">
+		<section id="content" style="width: 100%;">
+			<div class="page type-page status-publish hentry"> 
+				<div class="col-xs-12 col-md-12">
+					<div class="row">
+						<div class="col-sm-6 text-center" style="margin-bottom:60px">
+							<p><img alt="" src="https://v.fastcdn.co/t/421cc712/1f3b485d/1506392092-13705053-126x126-003-money.png" style="height:126px; width:126px" /></p>
+
+							<p style="text-align: center; font-size: 20px;"><b>Easy, transparent pricing - always</b></p>
+
+							<p style="text-align: center; font-size: 18px;">Credit card pricing shouldn&#39;t be complicated. Our rates are reasonable, clearly stated, and we&#39;ll explain anything you don&#39;t understand - guaranteed.</p>
+							
+						</div>
+						
+						
+						<div class="col-sm-6 text-center" style="margin-bottom:60px">
+							<p><img alt="" src="https://v.fastcdn.co/t/421cc712/1f3b485d/1506392088-15517286-127x127x127x127x0x0-001-men-shaking-hand.png" style="height:127px; width:127px" /></p>
+
+							<p style="text-align: center; font-size: 20px;"><b>Simple installation with a human touch</b></p>
+
+							<p style="text-align: center; font-size: 18px;">Picture this: your new point of sale system arrives quickly and in perfect condition. A friendly, trained technician sets up the entire thing and trains your team. This is our reality.</p>
+						</div>
+						
+						
+						<div class="col-sm-6 text-center" style="margin-bottom:60px">
+							<p><img alt="" src="https://v.fastcdn.co/t/421cc712/1f3b485d/1506392084-13705058-127x127-004-security.png" style="height:127px; width:127px" /></p>
+
+							<p style="text-align: center; font-size: 20px;"><b>Chargeback protection you can count on</b></p>
+
+							<p style="text-align: center; font-size: 18px;">We know that chargebacks are a big deal, so we stand behind our customers. We provide the tools and resources you need to prevent chargebacks, and protection when they do occur.</p>
+						</div>
+						
+						
+						<div class="col-sm-6 text-center" style="margin-bottom:60px">
+							<p><img alt="" src="https://v.fastcdn.co/t/421cc712/1f3b485d/1506392087-15517311-128x128x128x128x0x0-002-book.png" style="height:128px; width:128px" /></p>
+
+							<p style="text-align: center; font-size: 20px;"><b>Customer service that&#39;s always ready to serve</b></p>
+
+							<p style="text-align: center; font-size: 18px;">Our customer service is top-notch - we pride ourselves on it! There&#39;s no question too silly, no problem too small. Reach out to us, we love to help!</p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-md-12">
+					<h3 style="margin-top:15px; text-align:center">Want to learn more? Checkout our <a href="https://www.360payments.com/blog/" target="_blank" style="color: #78ac41;">blog</a> and <a href="https://www.youtube.com/channel/UC564QtYKW9GnZsJNNMhGJzw" target="_blank" style="color: #78ac41;">Youtube channel</a></h3>
+				</div>
+			</div>
+		</section>
+	</div>
+</main>
+
+<input type="hidden" id="sca" value="<?php echo $sca; ?>" />
+<input type="hidden" id="merchant_id" value="<?php echo $merchant_id; ?>" />
+
+<script src="<?php echo $site_url; ?>/partnercalculator/jquery.min.js"></script>
+<script src="<?php echo $site_url; ?>/partnercalculator/jquery.inputmask.bundle.js"></script>
+<script src="<?php echo $site_url; ?>/plugins/select2/js/select2.js"></script>
+<script src="<?php echo $site_url; ?>/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="<?php echo $site_url; ?>/partnercalculator/app.js"></script>

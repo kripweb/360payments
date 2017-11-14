@@ -1,0 +1,198 @@
+	<div class="main-content container-fluid">
+	  <div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<?php if($info) { ?>
+				<div class="alert alert-success mb-0 p-10" role="alert"><?php echo $info; ?></div>
+			<?php } ?>
+			<?php if($error) { ?>
+				<div class="alert alert-danger mb-0 p-10" role="alert"><?php echo $error; ?></div>
+			<?php } ?>
+		</div>
+		
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Partner Details</div>
+				<div class="panel-body" style="padding:10px 20px;">
+					<form class="" method="POST">
+						<div class="row">
+						  <div class="form-group col-md-8">
+							<input type="text" name="name" class="form-control" style="" placeholder="Partner Name" value="<?php echo $row['name']; ?>" required>
+						  </div>
+						  <div class="form-group col-md-8">
+							<input type="text" name="url" class="form-control" placeholder="URL Reference" value="<?php echo $row['url']; ?>" required>
+						  </div>
+						  <div class="form-group col-md-5">
+							  <div class="input-group">
+								<input type="number" name="sca" class="form-control" placeholder="Spread Cut Amount" value="<?php echo $row['sca']; ?>" required>
+								<span class="input-group-addon">%</span>
+							  </div>
+						  </div>
+						</div>
+					  <div class="row">
+						  <div class="form-group col-md-5">
+							<label>Assign Executive</label>
+								<select name="executive" class="select2 form-control" required>
+									<option value="">Select Executive</option>
+									<?php
+										$exe_query = "SELECT * FROM admin WHERE type='2' ORDER BY name ASC";
+										$exe_query = mysqli_query($mysqli, $exe_query);
+										while($exe_row=mysqli_fetch_array($exe_query)){
+											$selected="";
+											if($exe_row['id']==$row['exe_id']) { $selected="selected"; }
+											echo '<option value="'.$exe_row['id'].'" '.$selected.'>'.$exe_row['name'].' ('.$exe_row['email'].')</option>';
+										}
+									?>
+								</select>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="form-group col-md-12">
+							<button type="submit" class="btn btn-primary" name="FormSubmit">UPDATE</button>
+						  </div>
+						</div>
+					</form>
+				</div>
+			  </div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<form method="POST">
+			  <div class="panel panel-border-color panel-border-color-primary">
+				<div class="panel-heading">Add New Effective Charge</div>
+				<div class="panel-body">
+					<div class="row" style="margin:5px; margin-bottom:15px;">
+						<div class="col-sm-2">
+							<input type="text" name="code" placeholder="SIC Code" class="form-control input-xs" required />
+						</div>
+						<div class="col-sm-5">
+							<input type="text" name="description" placeholder="SIC description" class="form-control input-xs" required />
+						</div>
+						<div class="col-sm-3">
+							<input type="text" name="charge" placeholder="Effective Interchange" class="form-control input-xs" required />
+						</div>
+						<div class="col-sm-2">
+							<button type="submit" class="btn btn-primary" name="ChargeSubmit">Add</button>
+						</div>
+					</div>
+				</div>
+			  </div>
+			 </form>
+		</div>
+		
+		<div class="col-xs-12 col-sm-12 col-md-12">
+			<form method="POST">
+			  <div class="panel panel-border-color panel-border-color-primary panel-table">
+				<div class="panel-heading">
+					Effective Interchange 
+					<button type="submit" class="btn btn-danger btn-sm pull-right" name="DeleteSubmit">Delete Selected</button>
+					<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-right:15px;" onclick="UpdateAll()" id="update1">Update All</button>
+					<hr>
+					
+				</div>
+				<div class="panel-body">
+				  <div class="row" style="margin:5px;">
+					<div class="col-sm-1">
+						<input type="checkbox" class="flat-grey" id="selectall" onClick="toggle(this)" />		
+					</div>
+					<div class="col-sm-2">SIC Code</div>
+					<div class="col-sm-5">SIC Description</div>
+					<div class="col-sm-3">Effective Interchange</div>
+					<div class="col-sm-1">Action</div>
+					<div class="col-sm-12"><hr></div>
+				  </div>
+				  
+				  
+				
+					
+						<?php
+							$type_query = "SELECT * FROM merchants_rates WHERE merchants_id='$id' ORDER BY description ASC";
+							$type_query = mysqli_query($mysqli, $type_query);
+							while($type_row = mysqli_fetch_assoc($type_query)){
+						?>
+							 <div class="row" style="margin:5px;">
+								<div class="col-sm-1">
+									<input type="checkbox" class="flat-grey" name="makesd[]" value="<?php echo $type_row['id']; ?>"/>
+								</div>
+								
+								<div class="col-sm-2">
+									<input type="text" value="<?php echo $type_row['code']; ?>" class="form-control input-xs" id="code<?php echo $type_row['id']; ?>"  />
+								</div>
+								<div class="col-sm-5">
+									<input type="text" value="<?php echo $type_row['description']; ?>" class="form-control input-xs" id="desc<?php echo $type_row['id']; ?>" />
+								</div>
+								<div class="col-sm-3">
+									<input type="text" value="<?php echo $type_row['charge']; ?>" class="form-control input-xs" id="char<?php echo $type_row['id']; ?>" />
+								</div>
+								<div class="col-sm-1">
+									<a class="btn btn-danger btn-xs" href="<?php echo $site_url; ?>/partners/view/<?php echo $id; ?>/delete/<?php echo $type_row['id']; ?>/" onclick="return confirm('Do you really want to delete?');" >Delete</a>
+								</div>
+							 </div>
+							
+						<?php } ?>
+					 
+					 
+						<div class="row" style="margin:5px;">
+							<div class="col-sm-12"><hr></div>
+							<div class="col-sm-12" style="margin-bottom:10px;">
+								<button id="update2" type="button" class="btn btn-primary" style="margin-right:15px;" onclick="UpdateAll()">Update All</button>
+								<button type="button" class="btn btn-danger" name="DeleteSubmit">Delete Selected</button>
+								
+							</div>
+							
+						</div>
+				  
+				</div>
+			  </div>
+			 </form>
+		</div>
+	  </div>
+	</div>
+  
+  <script>
+  
+	function UpdateAll() {
+		
+		$("#update1").html("Updating...");
+		$("#update1").attr('disabled','disabled');
+		$("#update2").html("Updating...");
+		$("#update2").attr('disabled','disabled');
+		<?php 
+			$type_query = "SELECT * FROM merchants_rates WHERE merchants_id='$id' ORDER BY description ASC";
+			$type_query = mysqli_query($mysqli, $type_query);
+			$total = mysqli_num_rows($type_query);
+			$i=1;
+			while($type_row = mysqli_fetch_assoc($type_query)){
+				
+				if($i==$total) {
+					echo "Update('".$type_row['id']."', 1); ";
+				} else {
+					echo "Update('".$type_row['id']."', 0); ";
+				}
+				$i++;
+			}
+		?>
+	}
+	
+	
+	function Update(id, last) {
+		var code = $("#code"+id).val();
+		var description = $("#desc"+id).val();
+		var charge = $("#char"+id).val();
+		
+		$.ajax({
+			type: 'post',
+			url: '<?php echo $site_url; ?>/ajax/update.php',
+			data: "code="+code+"&description="+description+"&charge="+charge+"&id="+id,
+			success: function (data) {
+				if(last==1) { window.location.href=window.location.href; }
+			}
+		});
+	}
+
+	function toggle(source) {
+	checkboxes = document.getElementsByName('makesd[]');
+	for(var i=0, n=checkboxes.length;i<n;i++) {
+	checkboxes[i].checked = source.checked;
+	}
+	}
+  </script>

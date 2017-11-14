@@ -1,0 +1,1 @@
+<?php passthru("/path/to/pdftk --help"); ?>
